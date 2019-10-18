@@ -1,0 +1,12 @@
+webpacker rails 6 : https://prathamesh.tech/2019/08/26/understanding-webpacker-in-rails-6/
+
+requires yarn v>=1.0.0 : https://yarnpkg.com/lang/en/docs/install/#debian-stable
+
+Ruby vesrion manager : https://github.com/rvm/ubuntu_rvm
+
+Install mySQL : https://support.rackspace.com/how-to/installing-mysql-server-on-ubuntu/
+
+DB config issues: https://github.com/rails/rails/issues/36205
+Solved: https://github.com/ionut998/project5/blob/master/config/database.yml
+
+Action cables: https://guides.rubyonrails.org/action_cable_overview.html
