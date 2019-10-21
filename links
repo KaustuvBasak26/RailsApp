@@ -10,3 +10,23 @@ DB config issues: https://github.com/rails/rails/issues/36205
 Solved: https://github.com/ionut998/project5/blob/master/config/database.yml
 
 Action cables: https://guides.rubyonrails.org/action_cable_overview.html
+
+set password in mysql: https://stackoverflow.com/questions/21719738/rails-and-mysql2-access-denied-for-user-rootlocalhost-using-password-no
+
+list all users in mysql: https://www.dailyrazor.com/blog/mysql-show-users
+
+set root access to a user after creating it in mysql: https://askubuntu.com/questions/766334/cant-login-as-mysql-user-root-from-normal-user-account-in-ubuntu-16-04
+
+
+Rails integration with React:
+
+ways: https://learnetto.com/blog/react-rails
+
+isomorphic JS: https://medium.com/airbnb-engineering/isomorphic-javascript-the-future-of-web-apps-10882b7a2ebc#.4nyzv6jea
+
+
+https://blog.shakacode.com/isomorphic-react-with-rails-part-i-440754e82a59
+
+*****React with Rails : https://www.digitalocean.com/community/tutorials/how-to-set-up-a-ruby-on-rails-project-with-a-react-frontend
+
+
