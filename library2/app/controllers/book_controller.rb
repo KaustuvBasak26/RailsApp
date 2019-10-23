@@ -1,10 +1,15 @@
 class BookController < ApplicationController
 	def list
 		@books = Book.all
+		render json: @books
 	end
 
 	def show
-		@book = Book.find(params[:id])
+		#@book = Book.find(params[:id])
+		if book
+			render json: book
+		else
+			render json: book.errors
 	end
 	
 	def new
@@ -20,10 +25,12 @@ class BookController < ApplicationController
 		@book = Book.new(book_params)
 	
 		if @book.save
-			redirect_to :action => 'list'
+			render json: @book
+			#redirect_to :action => 'list'
 		else
-		   	@subjects = Subject.all
-		   	render :action => 'new'
+			render json: @book.errors
+		   	#@subjects = Subject.all
+		   	#render :action => 'new'
 		end
 	end
 
@@ -44,8 +51,9 @@ class BookController < ApplicationController
 	end
 
 	def delete
-		Book.find(params[:id]).destroy
-		redirect_to :action => 'list'
+		Book.find(params[:id])&.destroy
+		render json: { message: 'Recipe deleted!' }
+		#redirect_to :action => 'list'
 	end
 
 	def show_subjects
