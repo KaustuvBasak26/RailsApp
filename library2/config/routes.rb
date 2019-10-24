@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
   root 'homepage#index'
-  get '/*path' => 'homepage#index'
+ 
   namespace :api do
 	namespace :v1 do
 		get 'books/list'
 	end
   end
+  get '/*path' => 'homepage#index'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 	
 	#get 'book_controller/book/new'
