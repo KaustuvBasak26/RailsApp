@@ -1,7 +1,7 @@
-class BookController < ApplicationController
-	def list
-		@books = Book.all
-		render json: @books
+class Api::V1::BooksController < ApplicationController
+    def list
+		book = Book.all
+		render json: book
 	end
 
 	def show
