@@ -57,7 +57,7 @@ class Books extends React.Component{
                         </p>
                     </div>
                 </section>
-                <div className="py-5">noBook
+                <div className="py-5">
                     <main className="container">
                         <div className="text-right mb-3">
                             <Link to="/book/new" className="btn custom-button">
