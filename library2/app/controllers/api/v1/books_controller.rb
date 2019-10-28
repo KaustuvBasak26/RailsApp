@@ -25,7 +25,11 @@ class Api::V1::BooksController < ApplicationController
 	 	@book = Book.new(book_params)
 	
 	 	if @book.save
-	 		render json: @book
+			 render json: @book
+			 ActionCable.server.broadcast 'create_notification',
+			 message: message.content
+
+			head: ok
 	# 		redirect_to :action => 'list'
 	 	else
 	 		render json: @book.errors

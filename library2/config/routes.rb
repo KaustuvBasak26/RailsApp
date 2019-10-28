@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   root 'homepage#index'
+
+  mount ActionCable.server => '/cable'
+
+  resources :create_notification
  
   namespace :api do
 	namespace :v1 do
