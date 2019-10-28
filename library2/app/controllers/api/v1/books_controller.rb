@@ -17,22 +17,22 @@ class Api::V1::BooksController < ApplicationController
 	# 	@subjects = Subject.all
 	# end
 
-	# def book_params
-	# 	params.require(:books).permit(:title, :price, :subject_id, :description)
-	# end
+	def book_params
+		params.permit(:title, :price, :subject_id, :description)
+	end
 	
-	# def create
-	# 	@book = Book.new(book_params)
+	def create
+	 	@book = Book.new(book_params)
 	
-	# 	if @book.save
-	# 		render json: @book
-	# 		#redirect_to :action => 'list'
-	# 	else
-	# 		render json: @book.errors
+	 	if @book.save
+	 		render json: @book
+	# 		redirect_to :action => 'list'
+	 	else
+	 		render json: @book.errors
 	# 	   	#@subjects = Subject.all
 	# 	   	#render :action => 'new'
-	# 	end
-	# end
+	 	end
+	 end
 
 	# def edit
 	# 	@book = Book.find(params[:id])
