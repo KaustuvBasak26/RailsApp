@@ -1,4 +1,6 @@
 import consumer from "./consumer"
+import Books from "../components/Books";
+import React from "react";
 
 consumer.subscriptions.create("CreateNotificationChannel", {
   connected() {
@@ -11,5 +13,6 @@ consumer.subscriptions.create("CreateNotificationChannel", {
 
   received(data) {
     // Called when there's incoming data on the websocket for this channel
+    window.alert(data.message);
   }
 });

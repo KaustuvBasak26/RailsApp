@@ -3,8 +3,14 @@ Rails.application.configure do
 
 
   #action cable setup
-  config.action_cable.url = "ws://localhost:3000/cable"
-
+  #ssl_key = File.expand_path '../certificates/server.key', __FILE__
+  #ssl_cert = File.expand_path '../certificates/server.crt', __FILE__
+  #bind "ssl://127.0.0.1:3000?key=#{ssl_key}&cert=#{ssl_cert}"
+  config.action_cable.url = "wss://localhost:3000/cable"
+  config.force_ssl = false
+  #config.action_cable.url = ["wss://localhost:3000/cable",/ws:\/\/*/, /wss:\/\/*/]
+  config.action_cable.allowed_request_origins = [/http:\/\/*/, /https:\/\/*/]
+  
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.

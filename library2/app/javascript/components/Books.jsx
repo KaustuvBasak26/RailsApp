@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import consumer from "../channels/consumer";
 
 class Books extends React.Component{
     constructor(props){
@@ -10,6 +11,16 @@ class Books extends React.Component{
     }
 
     componentDidMount(){
+        consumer.subscriptions.create(
+            {channel: "CreateNotificationChannel"},
+            {
+                received: data => {
+                    if(data.message.length !== 0){
+                        console.log("DATA RECEIVED!!")
+                        // componentDidMount();
+                    }
+            }
+        });
         const url = "/api/v1/books/list";
         fetch(url)
         .then(respose => {
@@ -22,6 +33,7 @@ class Books extends React.Component{
         .catch(() => this.props.history.push("/"));
     }
 
+    
     render(){
         const { books } = this.state;
         const allBooks = books.map((book, index) => (
