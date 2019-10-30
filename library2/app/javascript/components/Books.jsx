@@ -17,8 +17,17 @@ class Books extends React.Component{
                 received: data => {
                     if(data.message.length !== 0){
                         console.log("DATA RECEIVED!!")
-                        // componentDidMount();
-                    }
+                        const url = "/api/v1/books/list";
+                        fetch(url)
+                        .then(respose => {
+                            if(respose.ok){
+                            return respose.json();
+                        }
+                        throw new Error("Network response was not ok.")
+                    })
+                    .then(respose => this.setState({books: respose}))
+                    .catch(() => this.props.history.push("/"));
+                }
             }
         });
         const url = "/api/v1/books/list";

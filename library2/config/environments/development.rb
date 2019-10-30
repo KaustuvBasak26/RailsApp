@@ -6,7 +6,7 @@ Rails.application.configure do
   #ssl_key = File.expand_path '../certificates/server.key', __FILE__
   #ssl_cert = File.expand_path '../certificates/server.crt', __FILE__
   #bind "ssl://127.0.0.1:3000?key=#{ssl_key}&cert=#{ssl_cert}"
-  config.action_cable.url = "wss://localhost:3000/cable"
+  config.action_cable.url = "ws://localhost:3000/cable"
   config.force_ssl = false
   #config.action_cable.url = ["wss://localhost:3000/cable",/ws:\/\/*/, /wss:\/\/*/]
   config.action_cable.allowed_request_origins = [/http:\/\/*/, /https:\/\/*/]
