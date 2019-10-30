@@ -9,7 +9,7 @@ class Api::V1::BooksController < ApplicationController
 	# 	if book
 	# 		render json: book
 	# 	else
-	# 		render json: book.errors
+	# 		render json: book.errorsexample
 	# end
 	
 	# def new

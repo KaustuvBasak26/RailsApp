@@ -8,6 +8,7 @@ Rails.application.configure do
   #bind "ssl://127.0.0.1:3000?key=#{ssl_key}&cert=#{ssl_cert}"
   config.action_cable.url = "ws://localhost:3000/cable"
   config.force_ssl = false
+  config.hosts << "62d7d957.ngrok.io"
   #config.action_cable.url = ["wss://localhost:3000/cable",/ws:\/\/*/, /wss:\/\/*/]
   config.action_cable.allowed_request_origins = [/http:\/\/*/, /https:\/\/*/]
   
