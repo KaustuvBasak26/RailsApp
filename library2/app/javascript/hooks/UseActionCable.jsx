@@ -29,8 +29,6 @@ let receivedDataHandlers = {
     "path3": (data) => {}
 };
 
-
-
 //Action Cable custom hook
 export default useActionCable = (path) => {
   
