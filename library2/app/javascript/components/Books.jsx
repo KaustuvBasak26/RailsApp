@@ -28,25 +28,6 @@ const Books = () => {
     const [books, setBooks] = useState([]);
     const [error, setError] = useState(null);
     useEffect(() => {
-        // consumer.subscriptions.create(
-        //             {channel: "CreateNotificationChannel"},
-        //             {
-        //                 received: data => {
-        //                     if(data.message.length !== 0){
-        //                         console.log("DATA RECEIVED!!")
-        //                         const url = "/api/v1/books/list";
-        //                         fetch(url)
-        //                         .then(respose => {
-        //                             if(respose.ok){
-        //                             return respose.json();
-        //                         }
-        //                         throw new Error("Network response was not ok.")
-        //                     })
-        //                     .then(respose => setBooks(respose)
-        //                     .catch((e) => console.log(e.message)));
-        //                 }
-        //             }
-        //         });
         const fetchBooks = async () => {
             try {
                 const books = await getBooks();
@@ -56,6 +37,16 @@ const Books = () => {
             }
         }
         fetchBooks();
+        consumer.subscriptions.create(
+                     {channel: "CreateNotificationChannel"},
+                     {
+                         received: data => {
+                             if(data.message.length !== 0){
+                                 fetchBooks();
+                         }
+                     }
+                 });
+        
                 
     }, [])
 
@@ -94,5 +85,3 @@ const Books = () => {
 }
 
 export default Books;
-
-
