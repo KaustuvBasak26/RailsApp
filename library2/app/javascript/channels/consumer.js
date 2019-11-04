@@ -3,4 +3,4 @@
 
 import { createConsumer } from "@rails/actioncable"
 
-export default createConsumer("ws://cbc597a4.ngrok.io/cable");
+export default createConsumer("ws://localhost:3000/cable");

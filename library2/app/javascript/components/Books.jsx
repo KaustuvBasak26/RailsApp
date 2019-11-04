@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
-import consumer from "../channels/consumer";
 import { getBooks } from "../services/getBooks";
+import { createConsumer } from "@rails/actioncable";
 
 const ListBooks = ({books}) => 
     books.map((book, index) => (
@@ -24,9 +24,71 @@ const NoBook = () =>  (
         </h4>
     </div>
 );
+
+const useActionCable = (path, channel) =>  {
+    const [connected, setStatus] = useState(false);
+    const [consumers, addConsumer] =  useState({});
+    const [subscriptions, addSubscription] =  useState({});
+    const [messages, addMessage] =  useState([]);
+  
+    useEffect(() => {
+      const  received = ({message})  => {        
+        addMessage([...messages, 
+            {...JSON.parse(message), _path: path, _channel: channel}]);
+      }      
+      const connected = () => {
+        setStatus(true);
+      }
+      const disconnected = () => {
+        setStatus(false);
+      }
+      const consumer = createConsumer(`ws://localhost:3000/${path}` );
+      addConsumer({...consumers,[path]: consumer})
+      const subscription = consumer.subscriptions.create({channel},{received, connected, disconnected});
+       
+      addSubscription({...subscriptions, [channel]: subscription});
+
+      return () => {
+        consumer.subscriptions.remove(subscription)
+        consumer.disconnect();
+      };
+    },[]);
+  
+    const send = (...args) => {
+        consumers[path].send.apply(consumers[path],args)
+    }
+    return {
+        messages, 
+        send,
+        connected
+    };
+  }
+
+  const useSubscribeNotification  = () => {
+    const path = "cable";
+    const channel = "CreateNotificationChannel";
+    const {
+        messages, 
+        send,
+        connected
+    } = useActionCable(path, channel);
+
+    const getNotifications  = () => {
+            return messages.filter((message) => message._path == path && 
+            message._channel == channel)
+    }
+    return {
+        getNotifications,
+        send,
+        connected
+    }
+  }
+
+
 const Books = () => {
     const [books, setBooks] = useState([]);
     const [error, setError] = useState(null);
+    const {getNotifications, connected} = useSubscribeNotification();
     useEffect(() => {
         const fetchBooks = async () => {
             try {
@@ -37,20 +99,24 @@ const Books = () => {
             }
         }
         fetchBooks();
-        consumer.subscriptions.create(
-                     {channel: "CreateNotificationChannel"},
-                     {
-                         received: data => {
-                             if(data.message.length !== 0){
-                                 fetchBooks();
-                         }
-                     }
-                 });
-        
-                
-    }, [])
+    }, []);
 
-        return(
+    const bookNotifications =  getNotifications();
+        if(bookNotifications.length ) {
+            const newlyAddedBooks = bookNotifications
+            .filter(notification => notification.action == "created" && notification.book 
+            && !books.find( book => notification.book.id == book.id)
+            )
+            //.filter(Boolean)
+            .map(notification => notification.book)
+            console.log("Books Notification:", bookNotifications);
+            console.log("Newly Added Book:", newlyAddedBooks);
+            if(newlyAddedBooks.length)
+            setBooks(books.concat(newlyAddedBooks))
+        }
+    
+    
+    return(
             <>
                 <section className="jumbotron jumbotron-fluid text-center">
                     <div className="container py-5">

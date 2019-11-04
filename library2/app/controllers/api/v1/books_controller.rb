@@ -1,3 +1,4 @@
+require "json"
 class Api::V1::BooksController < ApplicationController
     def list
 		book = Book.all
@@ -26,7 +27,8 @@ class Api::V1::BooksController < ApplicationController
 	
 	 	if @book.save
 			 render json: @book
-			 ActionCable.server.broadcast 'create_notification', message: "#{params[:title]} added"
+			 message  =  { :book => @book, :action =>  "created" }
+			 ActionCable.server.broadcast 'create_notification', message: message.to_json
 			 #, head: ok
 	# 		redirect_to :action => 'list'
 	 	else
